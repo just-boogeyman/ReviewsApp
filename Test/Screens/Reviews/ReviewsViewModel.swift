@@ -69,7 +69,22 @@ private extension ReviewsViewModel {
         state.items[index] = item
         onStateChange?(state)
     }
+	
+	func numberOfRows() -> Int {
+		return state.items.count + 1
+	}
 
+	func item(at index: Int) -> TableCellConfig {
+		
+		if index < state.items.count {
+			return state.items[index]
+		} else {
+			// Последняя ячейка с количеством отзывов
+			let countText = "\(state.items.count) отзывов".attributed(font: .created, color: .lightGray)
+			return ReviewsCountCellConfig(countText: countText)
+		}
+	}
+	
 }
 
 // MARK: - Items
@@ -100,11 +115,11 @@ private extension ReviewsViewModel {
 extension ReviewsViewModel: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        state.items.count
+		numberOfRows()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let config = state.items[indexPath.row]
+		let config = item(at: indexPath.row)
         let cell = tableView.dequeueReusableCell(withIdentifier: config.reuseId, for: indexPath)
         config.update(cell: cell)
         return cell
@@ -117,7 +132,8 @@ extension ReviewsViewModel: UITableViewDataSource {
 extension ReviewsViewModel: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        state.items[indexPath.row].height(with: tableView.bounds.size)
+		let config = item(at: indexPath.row)
+		return config.height(with: tableView.bounds.size)
     }
 
     /// Метод дозапрашивает отзывы, если до конца списка отзывов осталось два с половиной экрана по высоте.
