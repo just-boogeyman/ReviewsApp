@@ -20,6 +20,8 @@ struct ReviewCellConfig {
 	let userText: NSAttributedString
 	/// Картинка рейтинга.
 	let ratingImage: UIImage
+	/// URL строки
+	let avatarUrl: String
 
     /// Объект, хранящий посчитанные фреймы для ячейки отзыва.
     fileprivate let layout = ReviewCellLayout()
@@ -39,6 +41,9 @@ extension ReviewCellConfig: TableCellConfig {
         cell.createdLabel.attributedText = created
 		cell.userTextLabel.attributedText = userText
 		cell.ratingImage.image = ratingImage
+		
+		cell.avatarImage.configure(urlImage: avatarUrl)
+
         cell.config = self
     }
 
@@ -47,7 +52,6 @@ extension ReviewCellConfig: TableCellConfig {
     func height(with size: CGSize) -> CGFloat {
         layout.height(config: self, maxWidth: size.width)
     }
-
 }
 
 // MARK: - Private
@@ -67,7 +71,7 @@ final class ReviewCell: UITableViewCell {
     fileprivate var config: Config?
 
 	fileprivate let ratingImage = UIImageView()
-	fileprivate let avatarImage = UIImageView()
+	fileprivate let avatarImage = ContainerImageView()
 	fileprivate let userTextLabel = UILabel()
     fileprivate let reviewTextLabel = UILabel()
     fileprivate let createdLabel = UILabel()
@@ -117,7 +121,7 @@ private extension ReviewCell {
 		avatarImage.clipsToBounds = true
 		avatarImage.layer.cornerRadius = Layout.avatarCornerRadius
 		avatarImage.contentMode = .scaleAspectFill
-		avatarImage.image = UIImage(resource: .avatar)
+//		avatarImage.image = UIImage(resource: .avatar)
 	}
 	
 	func setupUserLable() {
@@ -144,7 +148,6 @@ private extension ReviewCell {
 		guard let config = config else { return }
 		config.onTapShowMore(config.id)
 	}
-	
 }
 
 // MARK: - Layout

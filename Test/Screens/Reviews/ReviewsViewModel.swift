@@ -22,7 +22,6 @@ final class ReviewsViewModel: NSObject {
         self.ratingRenderer = ratingRenderer
         self.decoder = decoder
     }
-
 }
 
 // MARK: - Internal
@@ -75,7 +74,6 @@ private extension ReviewsViewModel {
 	}
 
 	func item(at index: Int) -> TableCellConfig {
-		
 		if index < state.items.count {
 			return state.items[index]
 		} else {
@@ -98,12 +96,14 @@ private extension ReviewsViewModel {
         let created = review.created.attributed(font: .created, color: .created)
 		let userText = "\(review.first_name) \(review.last_name)".attributed(font: .username)
 		let ratingImage = ratingRenderer.ratingImage(review.rating)
+		let avatarUrl = review.avatar_url
         let item = ReviewItem(
             reviewText: reviewText,
             created: created,
 			onTapShowMore: showMoreReview, 
 			userText: userText,
-			ratingImage: ratingImage
+			ratingImage: ratingImage,
+			avatarUrl: avatarUrl
         )
         return item
     }
