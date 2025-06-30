@@ -20,6 +20,12 @@ struct ReviewCellConfig {
 	let userText: NSAttributedString
 	/// Картинка рейтинга.
 	let ratingImage: UIImage
+	/// URL строки
+	let avatarUrl: String
+	/// Фотографии отзыва
+	let reviewImages: [String]
+	/// Сервис загрузки картинок.
+	let imageLoader: ImageLoading
 
     /// Объект, хранящий посчитанные фреймы для ячейки отзыва.
     fileprivate let layout = ReviewCellLayout()
@@ -39,6 +45,10 @@ extension ReviewCellConfig: TableCellConfig {
         cell.createdLabel.attributedText = created
 		cell.userTextLabel.attributedText = userText
 		cell.ratingImage.image = ratingImage
+		
+		cell.loaderAvatar(from: avatarUrl, loader: imageLoader)
+		cell.loadImages(from: reviewImages, loader: imageLoader)
+
         cell.config = self
     }
 
@@ -47,7 +57,6 @@ extension ReviewCellConfig: TableCellConfig {
     func height(with size: CGSize) -> CGFloat {
         layout.height(config: self, maxWidth: size.width)
     }
-
 }
 
 // MARK: - Private
@@ -64,7 +73,11 @@ private extension ReviewCellConfig {
 
 final class ReviewCell: UITableViewCell {
 
+	private var imageLoader: ImageLoading?
     fileprivate var config: Config?
+	
+	/// Контейнер для фото.
+	fileprivate var reviewPhotoViews: [UIImageView] = []
 
 	fileprivate let ratingImage = UIImageView()
 	fileprivate let avatarImage = UIImageView()
@@ -91,8 +104,16 @@ final class ReviewCell: UITableViewCell {
 		avatarImage.frame = layout.avatarImageFrame
 		userTextLabel.frame = layout.userLableFrame
 		ratingImage.frame = layout.ratingImageFrame
+		for (index, frame) in config?.layout.photoFrames.enumerated() ?? [].enumerated() {
+			if index < reviewPhotoViews.count {
+				reviewPhotoViews[index].frame = frame
+			}
+		}
     }
-
+	
+	func configure(with config: ReviewCellConfig, imageLoader: ImageLoading) {
+		self.imageLoader = imageLoader
+	}
 }
 
 // MARK: - Private
@@ -117,7 +138,6 @@ private extension ReviewCell {
 		avatarImage.clipsToBounds = true
 		avatarImage.layer.cornerRadius = Layout.avatarCornerRadius
 		avatarImage.contentMode = .scaleAspectFill
-		avatarImage.image = UIImage(resource: .avatar)
 	}
 	
 	func setupUserLable() {
@@ -140,11 +160,44 @@ private extension ReviewCell {
 		showMoreButton.addTarget(self, action: #selector(showMoreTapped), for: .touchUpInside)
     }
 
-	@objc private func showMoreTapped() {
+	@objc func showMoreTapped() {
 		guard let config = config else { return }
 		config.onTapShowMore(config.id)
 	}
 	
+	func loadImages(from urls: [String], loader: ImageLoading) {
+		
+		reviewPhotoViews.forEach { $0.removeFromSuperview() }
+		reviewPhotoViews.removeAll()
+		
+		for url in urls {
+			let imageView = UIImageView()
+			imageView.contentMode = .scaleAspectFill
+			imageView.clipsToBounds = true
+			imageView.layer.cornerRadius = CGFloat(Layout.photoCornerRadius)
+			contentView.addSubview(imageView)
+			reviewPhotoViews.append(imageView)
+			
+			loader.loadImage(from: url) { image in
+				imageView.image = image
+			}
+		}
+		
+	}
+	
+	func loaderAvatar(from url: String, loader: ImageLoading) {
+		
+		loader.loadImage(from: url) { [weak self] image in
+			guard let self else { return }
+			
+			if let image {
+				self.avatarImage.image = image
+			} else {
+				return
+			}
+		}
+	}
+
 }
 
 // MARK: - Layout
@@ -152,6 +205,9 @@ private extension ReviewCell {
 /// Класс, в котором происходит расчёт фреймов для сабвью ячейки отзыва.
 /// После расчётов возвращается актуальная высота ячейки.
 private final class ReviewCellLayout {
+	
+	/// свойство отвечающее за кэш "Height"
+	private var cachedHeight: CGFloat?
 
     // MARK: - Размеры
 
@@ -171,6 +227,8 @@ private final class ReviewCellLayout {
     private(set) var reviewTextLabelFrame = CGRect.zero
     private(set) var showMoreButtonFrame = CGRect.zero
     private(set) var createdLabelFrame = CGRect.zero
+	private(set) var photoFrames: [CGRect] = []
+
 
     // MARK: - Отступы
 
@@ -219,7 +277,20 @@ private final class ReviewCellLayout {
 			size: Self.ratingImageSize
 		)
 		
-		maxY = ratingImageFrame.maxY + ratingToTextSpacing
+		maxY = ratingImageFrame.maxY + ratingToPhotosSpacing
+		
+		photoFrames = []
+		if !config.reviewImages.isEmpty {
+			for (index, _) in config.reviewImages.prefix(5).enumerated() {
+				let x = textStartX + CGFloat(index) * (Self.photoSize.width + photosSpacing)
+				let y = maxY
+				photoFrames.append(CGRect(origin: CGPoint(x: x, y: y), size: Self.photoSize))
+			}
+			maxY += Self.photoSize.height + photosToTextSpacing
+		} else {
+			// Если фото нет — просто отступ от рейтинга к тексту
+			maxY = ratingImageFrame.maxY + ratingToTextSpacing
+		}
 		var showShowMoreButton = false
 
         if !config.reviewText.isEmpty() {
