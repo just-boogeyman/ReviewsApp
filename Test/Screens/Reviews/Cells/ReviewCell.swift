@@ -23,7 +23,9 @@ struct ReviewCellConfig {
 	/// URL строки
 	let avatarUrl: String
 	/// Фотографии отзыва
-	let reviewImages: [UIImage]
+	let reviewImages: [String]
+	/// Сервис загрузки картинок.
+	let imageLoader: ImageLoading
 
     /// Объект, хранящий посчитанные фреймы для ячейки отзыва.
     fileprivate let layout = ReviewCellLayout()
@@ -44,9 +46,8 @@ extension ReviewCellConfig: TableCellConfig {
 		cell.userTextLabel.attributedText = userText
 		cell.ratingImage.image = ratingImage
 		
-		cell.avatarImage.configure(urlImage: avatarUrl)
-
-		cell.setupReviewPhotos(reviewImages)
+		cell.loaderAvatar(from: avatarUrl, loader: imageLoader)
+		cell.loadImages(from: reviewImages, loader: imageLoader)
 
         cell.config = self
     }
@@ -72,13 +73,14 @@ private extension ReviewCellConfig {
 
 final class ReviewCell: UITableViewCell {
 
+	private var imageLoader: ImageLoading?
     fileprivate var config: Config?
 	
 	/// Контейнер для фото.
 	fileprivate var reviewPhotoViews: [UIImageView] = []
 
 	fileprivate let ratingImage = UIImageView()
-	fileprivate let avatarImage = ContainerImageView()
+	fileprivate let avatarImage = UIImageView()
 	fileprivate let userTextLabel = UILabel()
     fileprivate let reviewTextLabel = UILabel()
     fileprivate let createdLabel = UILabel()
@@ -108,7 +110,10 @@ final class ReviewCell: UITableViewCell {
 			}
 		}
     }
-
+	
+	func configure(with config: ReviewCellConfig, imageLoader: ImageLoading) {
+		self.imageLoader = imageLoader
+	}
 }
 
 // MARK: - Private
@@ -155,22 +160,41 @@ private extension ReviewCell {
 		showMoreButton.addTarget(self, action: #selector(showMoreTapped), for: .touchUpInside)
     }
 
-	@objc private func showMoreTapped() {
+	@objc func showMoreTapped() {
 		guard let config = config else { return }
 		config.onTapShowMore(config.id)
 	}
 	
-	func setupReviewPhotos(_ images: [UIImage]) {
+	func loadImages(from urls: [String], loader: ImageLoading) {
+		
 		reviewPhotoViews.forEach { $0.removeFromSuperview() }
 		reviewPhotoViews.removeAll()
-
-		for (_, image) in images.prefix(5).enumerated() {
-			let imageView = UIImageView(image: image)
+		
+		for url in urls {
+			let imageView = UIImageView()
 			imageView.contentMode = .scaleAspectFill
 			imageView.clipsToBounds = true
 			imageView.layer.cornerRadius = CGFloat(Layout.photoCornerRadius)
 			contentView.addSubview(imageView)
 			reviewPhotoViews.append(imageView)
+			
+			loader.loadImage(from: url) { image in
+				imageView.image = image
+			}
+		}
+		
+	}
+	
+	func loaderAvatar(from url: String, loader: ImageLoading) {
+		
+		loader.loadImage(from: url) { [weak self] image in
+			guard let self else { return }
+			
+			if let image {
+				self.avatarImage.image = image
+			} else {
+				return
+			}
 		}
 	}
 
@@ -181,6 +205,9 @@ private extension ReviewCell {
 /// Класс, в котором происходит расчёт фреймов для сабвью ячейки отзыва.
 /// После расчётов возвращается актуальная высота ячейки.
 private final class ReviewCellLayout {
+	
+	/// свойство отвечающее за кэш "Height"
+	private var cachedHeight: CGFloat?
 
     // MARK: - Размеры
 
