@@ -40,7 +40,7 @@ final class ReviewsCountRatingCell: UITableViewCell {
 	// MARK: - Отступы
 
 	/// Отступы от краёв ячейки до её содержимого.
-	private let insets = Constants.insets
+	private let insets = UIEdgeInsets(top: 9, left: 12, bottom: 9, right: 12)
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)

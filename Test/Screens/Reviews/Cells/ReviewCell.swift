@@ -11,7 +11,11 @@ struct ReviewCellConfig {
     /// Текст отзыва.
     let reviewText: NSAttributedString
     /// Максимальное отображаемое количество строк текста. По умолчанию 3.
-    var maxLines = 3
+	var maxLines = 3 {
+		didSet {
+			layout.invalidateCache()
+		}
+	}
     /// Время создания отзыва.
     let created: NSAttributedString
     /// Замыкание, вызываемое при нажатии на кнопку "Показать полностью...".
@@ -138,6 +142,7 @@ private extension ReviewCell {
 		avatarImage.clipsToBounds = true
 		avatarImage.layer.cornerRadius = Layout.avatarCornerRadius
 		avatarImage.contentMode = .scaleAspectFill
+		avatarImage.image = ConstansApp.Placeholder.avatar
 	}
 	
 	func setupUserLable() {
@@ -179,14 +184,17 @@ private extension ReviewCell {
 			reviewPhotoViews.append(imageView)
 			
 			loader.loadImage(from: url) { image in
-				imageView.image = image
+				if let image {
+					imageView.image = image
+				} else {
+					return
+				}
 			}
 		}
 		
 	}
 	
 	func loaderAvatar(from url: String, loader: ImageLoading) {
-		
 		loader.loadImage(from: url) { [weak self] image in
 			guard let self else { return }
 			
@@ -256,6 +264,9 @@ private final class ReviewCellLayout {
 
     /// Возвращает высоту ячейку с данной конфигурацией `config` и ограничением по ширине `maxWidth`.
     func height(config: Config, maxWidth: CGFloat) -> CGFloat {
+		if let cachedHeight = cachedHeight {
+				return cachedHeight
+			}
 		
 		avatarImageFrame = CGRect(
 			origin: CGPoint(x: insets.left, y: insets.top),
@@ -322,9 +333,15 @@ private final class ReviewCellLayout {
             origin: CGPoint(x: textStartX, y: maxY),
             size: config.created.boundingRect(width: availableWidth).size
         )
-
-        return createdLabelFrame.maxY + insets.bottom
+		
+		let totalHeight = createdLabelFrame.maxY + insets.bottom
+		cachedHeight = totalHeight
+		return totalHeight
     }
+	
+	func invalidateCache() {
+		cachedHeight = nil
+	}
 
 }
 
