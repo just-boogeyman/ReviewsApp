@@ -7,11 +7,11 @@
 			"rating": 5,
 			"text": "Кроссовки хорошие. Удобные. Как по мне сшиты.",
 			"created": "1 час назад",
-			"avatar_url": "https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
+			"avatar_url": "https://randomuser.me/api/portraits/men/10.jpg",
 			"reviewImages": [
-				"https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
-				"https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
-				"https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100"
+				"https://randomuser.me/api/portraits/men/50.jpg",
+				"https://randomuser.me/api/portraits/men/51.jpg",
+				"https://randomuser.me/api/portraits/men/52.jpg"
 			]
 		},
 		{
@@ -20,7 +20,7 @@
 			"rating": 3,
 			"text": "Скользские ужасно.",
 			"created": "12 минут назад",
-			"avatar_url": "https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
+			"avatar_url": "https://randomuser.me/api/portraits/men/53.jpg",
 			"reviewImages": []
 		},
 		{
@@ -31,7 +31,7 @@
 			"created": "35 минут назад",
 			"avatar_url": "https://randomuser.me/api/portraits/men/50.jpg",
 			"reviewImages": [
-				"https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100"
+				"https://randomuser.me/api/portraits/men/53.jpg"
 			]
 		},
 		{
@@ -42,11 +42,11 @@
 			"created": "минуту назад",
 			"avatar_url": "https://randomuser.me/api/portraits/men/11.jpg",
 			"reviewImages": [
-				"https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
-				"https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
-				"https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
-				"https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
-				"https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100"
+				"https://randomuser.me/api/portraits/men/50.jpg",
+				"https://randomuser.me/api/portraits/men/51.jpg",
+				"https://randomuser.me/api/portraits/men/59.jpg",
+				"https://randomuser.me/api/portraits/men/65.jpg",
+				"https://randomuser.me/api/portraits/men/60.jpg"
 			]
 		},
 		{
@@ -57,7 +57,11 @@
 			"created": "только что",
 			"avatar_url": "https://randomuser.me/api/portraits/men/12.jpg",
 			"reviewImages": [
-				"https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100"
+				"https://randomuser.me/api/portraits/men/80.jpg",
+				"https://randomuser.me/api/portraits/men/81.jpg",
+				"https://randomuser.me/api/portraits/men/89.jpg",
+				"https://randomuser.me/api/portraits/men/65.jpg",
+				"https://randomuser.me/api/portraits/men/60.jpg"
 			]
 		},
 		{
@@ -68,8 +72,11 @@
 			"created": "15 минут назад",
 			"avatar_url": "https://randomuser.me/api/portraits/men/13.jpg",
 			"reviewImages": [
-				"https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
-				"https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100"
+				"https://randomuser.me/api/portraits/men/50.jpg",
+				"https://randomuser.me/api/portraits/men/51.jpg",
+				"https://randomuser.me/api/portraits/men/59.jpg",
+				"https://randomuser.me/api/portraits/men/65.jpg",
+				"https://randomuser.me/api/portraits/men/60.jpg"
 			]
 		},
 		{
@@ -89,7 +96,9 @@
 			"created": "1 час назад",
 			"avatar_url": "https://randomuser.me/api/portraits/men/10.jpg",
 			"reviewImages": [
-				"https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100"
+				"https://randomuser.me/api/portraits/men/50.jpg",
+				"https://randomuser.me/api/portraits/men/51.jpg",
+				"https://randomuser.me/api/portraits/men/59.jpg"
 			]
 		},
 		{
@@ -109,8 +118,9 @@
 			"created": "35 минут назад",
 			"avatar_url": "https://randomuser.me/api/portraits/men/70.jpg",
 			"reviewImages": [
-				"https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
-				"https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100"
+				"https://randomuser.me/api/portraits/men/50.jpg",
+				"https://randomuser.me/api/portraits/men/51.jpg",
+				"https://randomuser.me/api/portraits/men/59.jpg"
 			]
 		},
 		{
@@ -121,7 +131,7 @@
 			"created": "минуту назад",
 			"avatar_url": "https://randomuser.me/api/portraits/men/13.jpg",
 			"reviewImages": [
-				"https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100"
+				"https://randomuser.me/api/portraits/men/50.jpg"
 			]
 		},
 		{
@@ -132,9 +142,11 @@
 			"created": "только что",
 			"avatar_url": "https://randomuser.me/api/portraits/men/14.jpg",
 			"reviewImages": [
-				"https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
-				"https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
-				"https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100"
+				"https://randomuser.me/api/portraits/men/50.jpg",
+				"https://randomuser.me/api/portraits/men/51.jpg",
+				"https://randomuser.me/api/portraits/men/59.jpg",
+				"https://randomuser.me/api/portraits/men/65.jpg",
+				"https://randomuser.me/api/portraits/men/60.jpg"
 			]
 		},
 		{
@@ -154,8 +166,10 @@
 			"created": "вчера в 12:39",
 			"avatar_url": "https://randomuser.me/api/portraits/men/10.jpg",
 			"reviewImages": [
-				"https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
-				"https://images.pexels.com/photos/2529151/pexels-photo-2529151.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100"
+				"https://randomuser.me/api/portraits/men/50.jpg",
+				"https://randomuser.me/api/portraits/men/51.jpg",
+				"https://randomuser.me/api/portraits/men/59.jpg",
+				"https://randomuser.me/api/portraits/men/75.jpg"
 			]
 		},
 		{
@@ -166,7 +180,11 @@
 			"created": "1 час назад",
 			"avatar_url": "https://randomuser.me/api/portraits/men/21.jpg",
 			"reviewImages": [
-				"https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100"
+				"https://randomuser.me/api/portraits/men/50.jpg",
+				"https://randomuser.me/api/portraits/men/51.jpg",
+				"https://randomuser.me/api/portraits/men/59.jpg",
+				"https://randomuser.me/api/portraits/men/65.jpg",
+				"https://randomuser.me/api/portraits/men/60.jpg"
 			]
 		},
 		{
@@ -186,11 +204,11 @@
 			"created": "35 минут назад",
 			"avatar_url": "https://randomuser.me/api/portraits/men/74.jpg",
 			"reviewImages": [
-				"https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
-				"https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
-				"https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
-				"https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
-				"https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100"
+				"https://randomuser.me/api/portraits/men/57.jpg",
+				"https://randomuser.me/api/portraits/men/52.jpg",
+				"https://randomuser.me/api/portraits/men/55.jpg",
+				"https://randomuser.me/api/portraits/men/54.jpg",
+				"https://randomuser.me/api/portraits/men/52.jpg"
 			]
 		},
 		{
@@ -209,10 +227,7 @@
 			"text": "Отлично выглядят, хоть и скользковатые...",
 			"created": "только что",
 			"avatar_url": "https://randomuser.me/api/portraits/men/12.jpg",
-			"reviewImages": [
-				"https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100",
-				"https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100"
-			]
+			"reviewImages": []
 		},
 		{
 			"first_name": "Олег",
@@ -221,9 +236,7 @@
 			"text": "Ребёнок жалуется, что очень скользские. Пока шла до школы...",
 			"created": "15 минут назад",
 			"avatar_url": "https://randomuser.me/api/portraits/men/13.jpg",
-			"reviewImages": [
-				"https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=100"
-			]
+			"reviewImages": []
 		},
 		{
 			"first_name": "Николай",
