@@ -184,11 +184,8 @@ private extension ReviewCell {
 			reviewPhotoViews.append(imageView)
 			
 			loader.loadImage(from: url) { image in
-				if let image {
-					imageView.image = image
-				} else {
-					return
-				}
+				guard let image else { return }
+				imageView.image = image
 			}
 		}
 		
