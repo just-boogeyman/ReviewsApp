@@ -23,7 +23,7 @@ final class ContainerImageView: UIView {
 
 private extension ContainerImageView {
 	
-	private func setup() {
+	func setup() {
 		addSubview(imageView)
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		setupLayout()

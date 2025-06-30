@@ -22,6 +22,8 @@ struct ReviewCellConfig {
 	let ratingImage: UIImage
 	/// URL строки
 	let avatarUrl: String
+	/// Фотографии отзыва
+	let reviewImages: [UIImage]
 
     /// Объект, хранящий посчитанные фреймы для ячейки отзыва.
     fileprivate let layout = ReviewCellLayout()
@@ -43,6 +45,8 @@ extension ReviewCellConfig: TableCellConfig {
 		cell.ratingImage.image = ratingImage
 		
 		cell.avatarImage.configure(urlImage: avatarUrl)
+
+		cell.setupReviewPhotos(reviewImages)
 
         cell.config = self
     }
@@ -69,6 +73,9 @@ private extension ReviewCellConfig {
 final class ReviewCell: UITableViewCell {
 
     fileprivate var config: Config?
+	
+	/// Контейнер для фото.
+	fileprivate var reviewPhotoViews: [UIImageView] = []
 
 	fileprivate let ratingImage = UIImageView()
 	fileprivate let avatarImage = ContainerImageView()
@@ -95,6 +102,11 @@ final class ReviewCell: UITableViewCell {
 		avatarImage.frame = layout.avatarImageFrame
 		userTextLabel.frame = layout.userLableFrame
 		ratingImage.frame = layout.ratingImageFrame
+		for (index, frame) in config?.layout.photoFrames.enumerated() ?? [].enumerated() {
+			if index < reviewPhotoViews.count {
+				reviewPhotoViews[index].frame = frame
+			}
+		}
     }
 
 }
@@ -121,7 +133,6 @@ private extension ReviewCell {
 		avatarImage.clipsToBounds = true
 		avatarImage.layer.cornerRadius = Layout.avatarCornerRadius
 		avatarImage.contentMode = .scaleAspectFill
-//		avatarImage.image = UIImage(resource: .avatar)
 	}
 	
 	func setupUserLable() {
@@ -148,6 +159,21 @@ private extension ReviewCell {
 		guard let config = config else { return }
 		config.onTapShowMore(config.id)
 	}
+	
+	func setupReviewPhotos(_ images: [UIImage]) {
+		reviewPhotoViews.forEach { $0.removeFromSuperview() }
+		reviewPhotoViews.removeAll()
+
+		for (_, image) in images.prefix(5).enumerated() {
+			let imageView = UIImageView(image: image)
+			imageView.contentMode = .scaleAspectFill
+			imageView.clipsToBounds = true
+			imageView.layer.cornerRadius = CGFloat(Layout.photoCornerRadius)
+			contentView.addSubview(imageView)
+			reviewPhotoViews.append(imageView)
+		}
+	}
+
 }
 
 // MARK: - Layout
@@ -174,6 +200,8 @@ private final class ReviewCellLayout {
     private(set) var reviewTextLabelFrame = CGRect.zero
     private(set) var showMoreButtonFrame = CGRect.zero
     private(set) var createdLabelFrame = CGRect.zero
+	private(set) var photoFrames: [CGRect] = []
+
 
     // MARK: - Отступы
 
@@ -222,7 +250,20 @@ private final class ReviewCellLayout {
 			size: Self.ratingImageSize
 		)
 		
-		maxY = ratingImageFrame.maxY + ratingToTextSpacing
+		maxY = ratingImageFrame.maxY + ratingToPhotosSpacing
+		
+		photoFrames = []
+		if !config.reviewImages.isEmpty {
+			for (index, _) in config.reviewImages.prefix(5).enumerated() {
+				let x = textStartX + CGFloat(index) * (Self.photoSize.width + photosSpacing)
+				let y = maxY
+				photoFrames.append(CGRect(origin: CGPoint(x: x, y: y), size: Self.photoSize))
+			}
+			maxY += Self.photoSize.height + photosToTextSpacing
+		} else {
+			// Если фото нет — просто отступ от рейтинга к тексту
+			maxY = ratingImageFrame.maxY + ratingToTextSpacing
+		}
 		var showShowMoreButton = false
 
         if !config.reviewText.isEmpty() {

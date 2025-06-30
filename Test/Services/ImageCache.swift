@@ -8,10 +8,12 @@ final class ImageCache {
 
 	private init() {}
 
+	/// Метод получения изображения из кэша по ключу.
 	func image(forKey key: String) -> UIImage? {
 		return cache.object(forKey: key as NSString)
 	}
 
+	/// Метод сохранения изображения в кэш по ключу.
 	func setImage(_ image: UIImage, forKey key: String) {
 		cache.setObject(image, forKey: key as NSString)
 	}

@@ -3,7 +3,7 @@ import UIKit
 final class ReviewsView: UIView {
 
     let tableView = UITableView()
-	let activityIndicator = UIActivityIndicatorView(style: .large)
+	private let customIndicator = CustomActivityIndicatorView()
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -18,6 +18,13 @@ final class ReviewsView: UIView {
         super.layoutSubviews()
         tableView.frame = bounds.inset(by: safeAreaInsets)
     }
+	
+	func stopIndicator() {
+		customIndicator.stopAnimating()
+		customIndicator.isHidden = true
+		tableView.isHidden = false
+		tableView.reloadData()
+	}
 
 }
 
@@ -41,13 +48,14 @@ private extension ReviewsView {
     }
 	
 	private func setupActivityIndicator() {
-		addSubview(activityIndicator)
-		activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-		NSLayoutConstraint.activate([
-			activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
-			activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor)
-		])
-		activityIndicator.startAnimating()
+		 addSubview(customIndicator)
+		 customIndicator.translatesAutoresizingMaskIntoConstraints = false
+		 NSLayoutConstraint.activate([
+			 customIndicator.widthAnchor.constraint(equalToConstant: 40),
+			 customIndicator.heightAnchor.constraint(equalToConstant: 40),
+			 customIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
+			 customIndicator.centerYAnchor.constraint(equalTo: centerYAnchor)
+		 ])
 	}
 
 }

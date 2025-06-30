@@ -77,7 +77,6 @@ private extension ReviewsViewModel {
 		if index < state.items.count {
 			return state.items[index]
 		} else {
-			// Последняя ячейка с количеством отзывов
 			let countText = "\(state.items.count) отзывов".attributed(font: .created, color: .lightGray)
 			return ReviewsCountCellConfig(countText: countText)
 		}
@@ -97,13 +96,15 @@ private extension ReviewsViewModel {
 		let userText = "\(review.first_name) \(review.last_name)".attributed(font: .username)
 		let ratingImage = ratingRenderer.ratingImage(review.rating)
 		let avatarUrl = review.avatar_url
+		let randomImages = Array([UIImage(resource: .IMG_0001), UIImage(resource: .IMG_0002), UIImage(resource: .IMG_0003), UIImage(resource: .IMG_0004), UIImage(resource: .IMG_0005)].prefix(Int.random(in: 0...5)))
         let item = ReviewItem(
             reviewText: reviewText,
             created: created,
 			onTapShowMore: showMoreReview, 
 			userText: userText,
 			ratingImage: ratingImage,
-			avatarUrl: avatarUrl
+			avatarUrl: avatarUrl,
+			reviewImages: randomImages
         )
         return item
     }
