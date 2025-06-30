@@ -2,9 +2,9 @@ import UIKit
 
 final class ReviewsView: UIView {
 
+	var actionRefresh: (() -> Void)?
     let tableView = UITableView()
 	private let customIndicator = CustomActivityIndicatorView()
-	var actionRefresh: (() -> ())?
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -24,6 +24,13 @@ final class ReviewsView: UIView {
 		customIndicator.stopAnimating()
 		customIndicator.isHidden = true
 		tableView.isHidden = false
+		tableView.reloadData()
+	}
+	
+	func stopRefresh() {
+		if tableView.refreshControl != nil {
+			tableView.refreshControl?.endRefreshing()
+		}
 		tableView.reloadData()
 	}
 
@@ -53,18 +60,18 @@ private extension ReviewsView {
 		tableView.refreshControl = UIRefreshControl()
 		tableView.refreshControl?.tintColor = .systemPurple
 		let attributes: [NSAttributedString.Key: Any] = [
-			.foregroundColor: UIColor.systemPurple,
-			.font: UIFont.systemFont(ofSize: 16)
+			.foregroundColor: UIColor.black,
+			.font: UIFont.systemFont(ofSize: 14)
 		]
 		let attributedTitle = NSAttributedString(
-			string: "Обновление...",
+			string: ConstansApp.Placeholder.update,
 			attributes: attributes
 		)
 		tableView.refreshControl?.attributedTitle = attributedTitle
-		tableView.refreshControl?.addTarget(self, action: #selector(chengeRefresh), for: .valueChanged)
+		tableView.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
 	}
 	
-	@objc func chengeRefresh() {
+	@objc func handleRefresh() {
 		actionRefresh?()
 	}
 	

@@ -16,7 +16,7 @@ protocol ImageLoading {
 final class ImageLoader {
 
 	/// Хранение загруженных изображений.
-	private let cache = NSCache<NSString, UIImage>()
+	private let cache = NSCache<NSURL, UIImage>()
 	
 }
 
@@ -35,7 +35,7 @@ extension ImageLoader: ImageLoading {
 			return
 		}
 
-		if let cachedImage = cache.object(forKey: urlString as NSString) {
+		if let cachedImage = cache.object(forKey: url as NSURL) {
 			completion(cachedImage)
 			return
 		}
@@ -52,7 +52,7 @@ extension ImageLoader: ImageLoading {
 				return
 			}
 
-			self?.cache.setObject(image, forKey: urlString as NSString)
+			self?.cache.setObject(image, forKey: url as NSURL)
 
 			DispatchQueue.main.async {
 				completion(image)

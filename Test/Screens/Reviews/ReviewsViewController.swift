@@ -38,9 +38,19 @@ private extension ReviewsViewController {
         return reviewsView
     }
 
-    func setupViewModel() {
-        viewModel.onStateChange = { [weak reviewsView] _ in
-			reviewsView?.stopIndicator()
-        }
-    }
+	func setupViewModel() {
+		viewModel.onStateChange = { [weak self] state in
+			guard let self else { return }
+			switch state.loadingState {
+			case .loaded:
+				self.reviewsView.stopIndicator()
+			case .loading, .next:
+				break
+			}
+		}
+		reviewsView.actionRefresh = { [weak self] in
+			self?.viewModel.getReviews()
+			self?.reviewsView.stopRefresh()
+		}
+	}
 }
